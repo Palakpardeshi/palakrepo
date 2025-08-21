@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreshBite - Food Delivery</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom, #fff9f0, #fff5eb);
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    header {
+      background: linear-gradient(to right, #ff7e5f, #feb47b);
+      color: white;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    nav {
+      background: #ff7e5f;
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    nav a {
+      color: white;
+      padding: 1rem 1.5rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    nav a:hover {
+      background: #ff6b47;
+      transform: translateY(-2px);
+    }
+    
+    section {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      color: #ff7e5f;
+      font-size: 2.2rem;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: #ff7e5f;
+      margin: 10px auto;
+      border-radius: 2px;
+    }
+    
+    .food-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .food-item {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .food-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(255, 126, 95, 0.2);
+    }
+    
+    .food-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+    
+    .food-item:hover .food-img {
+      transform: scale(1.05);
+    }
+    
+    .food-item h3 {
+      margin: 0.8rem 0;
+      color: #333;
+      font-size: 1.3rem;
+    }
+    
+    .price {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #ff7e5f;
+      margin: 0.8rem 0;
+    }
+    
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 24px;
+      background: #ff7e5f;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      background: #ff6b47;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(255, 126, 95, 0.3);
+    }
+    
+    .btn i {
+      margin-right: 8px;
+    }
+    
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: linear-gradient(rgba(255, 126, 95, 0.85), rgba(254, 180, 123, 0.9)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80') center/cover;
+      color: white;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+    }
+    
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
+    }
+    
+    .hero-btn {
+      background: white;
+      color: #ff7e5f;
+      padding: 14px 28px;
+      font-weight: bold;
+    }
+    
+    .hero-btn:hover {
+      background: #fff5eb;
+      color: #ff6b47;
+    }
+    
+    .about-content, .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    
+    .about-img, .contact-img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 2.5rem 1rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .social-icons {
+      margin: 1.5rem 0;
+    }
+    
+    .social-icons a {
+      color: white;
+      font-size: 1.8rem;
+      margin: 0 12px;
+      transition: color 0.3s ease;
+    }
+    
+    .social-icons a:hover {
+      color: #ff7e5f;
+    }
+    
+    .food-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ff7e5f;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+    
+    .food-container {
+      position: relative;
+    }
+    
+    .category-filter {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .category-btn {
+      padding: 10px 20px;
+      background: white;
+      border: 2px solid #ff7e5f;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .category-btn.active, .category-btn:hover {
+      background: #ff7e5f;
+      color: white;
+    }
+    
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .testimonial {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .author-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .rating {
+      color: #ffc107;
+      margin-top: 5px;
+    }
+    
+    @media (max-width: 768px) {
+      .about-content, .contact-content {
+        grid-template-columns: 1fr;
+      }
+      
+      nav {
+        flex-wrap: wrap;
+      }
+      
+      .hero h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-utensils"></i>
+      <h1>FreshBite</h1>
+    </div>
+    <p>Delicious food delivered to your door</p>
+  </header>
+
+  <nav>
+    <a href="#home"><i class="fas fa-home"></i> Home</a>
+    <a href="#menu"><i class="fas fa-pizza-slice"></i> Menu</a>
+    <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+    <a href="#contact"><i class="fas fa-phone-alt"></i> Contact</a>
+  </nav>
+
+  <!-- Home Section -->
+  <section id="home">
+    <div class="hero">
+      <h2>Welcome to FreshBite</h2>
+      <p>Discover delicious meals from the best local restaurants, delivered fast to your doorstep</p>
+      <a href="#menu" class="btn hero-btn">Order Now <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu">
+    <h2 class="section-title">Our Menu</h2>
+    
+    <div class="category-filter">
+      <button class="category-btn active">All</button>
+      <button class="category-btn">Main Course</button>
+      <button class="category-btn">Appetizers</button>
+      <button class="category-btn">Desserts</button>
+      <button class="category-btn">Drinks</button>
+    </div>
+    
+    <div class="food-items">
+      <div class="food-item">
+        <div class="food-container">
+          <span class="food-badge">Popular</span>
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pasta Dish" class="food-img">
+        </div>
+        <h3>Creamy Alfredo Pasta</h3>
+        <p>Fresh pasta in rich alfredo sauce with mushrooms</p>
+        <p class="price">₹325</p>
+        <a href="#" class="btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+      </div>
+      <div class="food-item">
+        <div class="food-container">
+          <span class="food-badge">Chef's Choice</span>
+          <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pizza" class="food-img">
+        </div>
+        <h3>Gourmet Pizza</h3>
+        <p>Thin crust pizza with fresh mozzarella and basil</p>
+        <p class="price">₹450</p>
+        <a href="#" class="btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+      </div>
+      <div class="food-item">
+        <div class="food-container">
+          <span class="food-badge">New</span>
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Burger" class="food-img">
+        </div>
+        <h3>Gourmet Burger</h3>
+        <p>Juicy beef patty with fresh vegetables and special sauce</p>
+        <p class="price">₹280</p>
+        <a href="#" class="btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+      </div>
+      <div class="food-item">
+        <div class="food-container">
+          <span class="food-badge">Healthy</span>
+          <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Salad" class="food-img">
+        </div>
+        <h3>Fresh Garden Salad</h3>
+        <p>Mixed greens with avocado, nuts and balsamic dressing</p>
+        <p class="price">₹220</p>
+        <a href="#" class="btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+      </div>
+      <div class="food-item">
+        <div class="food-container">
+          <span class="food-badge">Sweet</span>
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Dessert" class="food-img">
+        </div>
+        <h3>Chocolate Cake</h3>
+        <p>Rich chocolate cake with vanilla ice cream</p>
+        <p class="price">₹180</p>
+        <a href="#" class="btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+      </div>
+      <div class="food-item">
+        <div class="food-container">
+          <span class="food-badge">Refreshing</span>
+          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Drink" class="food-img">
+        </div>
+        <h3>Fresh Fruit Smoothie</h3>
+        <p>Blend of seasonal fruits with yogurt and honey</p>
+        <p class="price">₹150</p>
+        <a href="#" class="btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+      </div>
+      <div class="food-item">
+        <div class="food-container">
+          <span class="food-badge">Spicy</span>
+          <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Tacos" class="food-img">
+        </div>
+        <h3>Mexican Tacos</h3>
+        <p>Authentic tacos with spicy salsa and guacamole</p>
+        <p class="price">₹320</p>
+        <a href="#" class="btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+      </div>
+      <div class="food-item">
+        <div class="food-container">
+          <span class="food-badge">Combo</span>
+          <img src="https://images.unsplash.com/photo-1563379923898-857c2e7a784e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sushi" class="food-img">
+        </div>
+        <h3>Sushi Platter</h3>
+        <p>Assorted fresh sushi with wasabi and soy sauce</p>
+        <p class="price">₹550</p>
+        <a href="#" class="btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials">
+    <h2 class="section-title">What Our Customers Say</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="testimonial-text">
+          "The food is always fresh and delicious. Their delivery is super fast even during busy hours. Highly recommended!"
+        </div>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Customer" class="author-img">
+          <div>
+            <h4>Priya Sharma</h4>
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-text">
+          "I love how they have healthy options that actually taste good. The portion sizes are perfect and the prices are reasonable."
+        </div>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="author-img">
+          <div>
+            <h4>Rahul Kapoor</h4>
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-text">
+          "Their dessert menu is amazing! The chocolate cake is to die for. I order from FreshBite at least twice a week."
+        </div>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Customer" class="author-img">
+          <div>
+            <h4>Anjali Patel</h4>
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2 class="section-title">About Us</h2>
+    <div class="about-content">
+      <div>
+        <p>At FreshBite, we believe that good food should be accessible to everyone, no matter how busy life gets. Founded in 2018, we've partnered with the best local restaurants to bring you delicious meals right to your doorstep.</p>
+        <p>Our mission is to make ordering food online a seamless experience while supporting local businesses and using sustainable packaging.</p>
+        <p>With lightning-fast delivery, easy ordering, and a commitment to quality, we're changing the way people experience food delivery.</p>
+        <br>
+        <a href="#contact" class="btn"><i class="fas fa-phone-alt"></i> Contact Us</a>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Our Kitchen" class="about-img">
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2 class="section-title">Contact Us</h2>
+    <div class="contact-content">
+      <div>
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Customer Service" class="contact-img">
+      </div>
+      <div>
+        <p><i class="fas fa-envelope"></i> <strong>Email:</strong> support@freshbite.com</p>
+        <p><i class="fas fa-phone"></i> <strong>Phone:</strong> +91 98765 43210</p>
+        <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> 123 Food Street, Mumbai, Maharashtra 400001</p>
+        <br>
+        <p>Have questions about our menu or need assistance with your order? Our customer service team is available daily from 10AM to 10PM.</p>
+        <br>
+        <a href="#" class="btn"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="logo">
+        <i class="fas fa-utensils"></i>
+        <h3>FreshBite</h3>
+      </div>
+      <p>Delivering delicious meals since 2018</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+      <p>&copy; 2023 FreshBite. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Simple category filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const categoryButtons = document.querySelectorAll('.category-btn');
+      
+      categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all buttons
+          categoryButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          // In a real implementation, this would filter the menu items
+          // For this example, we'll just show an alert
+          if(this.textContent !== 'All') {
+            alert('Filtering by: ' + this.textContent);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
